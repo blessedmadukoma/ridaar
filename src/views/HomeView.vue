@@ -4,6 +4,6 @@
 
 <template>
   <main>
-    <h2>Welcome to Ridaar</h2>
+    <h2 class="bg-green-200 text-red-800">Welcome to Ridaar</h2>
   </main>
 </template>
