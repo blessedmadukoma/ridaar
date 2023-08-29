@@ -13,6 +13,8 @@ lerna-debug.log*
 pnpm-lock.yaml
 yarn.lock
 package-lock.json
+.env
+.vite
 
 node_modules
 .DS_Store
