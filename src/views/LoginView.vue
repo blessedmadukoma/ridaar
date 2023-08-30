@@ -107,7 +107,7 @@ const handleLogin = () => {
     .catch((error) => {
       isResponse.value = true;
 
-      let errMsg = error.response.data.message || error.message;
+      let errMsg = error.response ? error.response.data.message : error.message;
 
       if (errMsg.includes("SQLSTATE[08006]") || errMsg.includes("not known (Connection")) {
         errMsg = "Network error!"

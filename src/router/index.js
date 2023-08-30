@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
-import { api } from '../helpers/api'
+import FindRideView from '../views/FindRideView.vue'
+import StandbyView from '../views/StandbyView.vue'
+// import { api } from '../helpers/api'
+import axios from 'axios'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +18,16 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView
+    },
+    {
+      path: '/find',
+      name: 'find-ride',
+      component: FindRideView
+    },
+    {
+      path: '/standby',
+      name: 'standby',
+      component: StandbyView
     }
     // {
     //   path: '/about',
@@ -40,17 +53,16 @@ router.beforeEach((to) => {
 })
 
 const checkTokenAuthenticity = () => {
-  api()
-    .get('/user', {
+  axios
+    .get(`${import.meta.env.VITE_API_URL}/user`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     })
     .then((response) => {
       console.log(response.data)
     })
-    .catch((error) => {
-      console.error(error)
+    .catch(() => {
       localStorage.removeItem('token')
       router.push({ name: 'login' })
     })

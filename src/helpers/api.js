@@ -1,18 +1,14 @@
-import Axios from 'axios'
-
-const API_URL = import.meta.env.VITE_API_URL
+import axios from 'axios'
 
 const api = () => {
   let options = {
-    baseURL: API_URL,
+    baseURL: `${import.meta.env.VITE_API_URL}`,
     headers: {}
   }
-
   if (localStorage.getItem('token')) {
     options.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
   }
-
-  return Axios.create(options)
+  return axios.create(options)
 }
 
 export { api }
