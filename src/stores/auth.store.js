@@ -1,42 +1,46 @@
-// import { ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { VueCookieNext } from 'vue-cookie-next'
+// import { VueCookieNext } from 'vue-cookie-next'
 
 // using ref
-// export const useAuthStore = defineStore('user', () => {
-//   const userDataToken = ref(null)
-
-//   // Action to set user data token
-//   const setUserDataToken = (token) => {
-//     userDataToken.value = token
-//   }
-
-//   // Action to clear user data token
-//   const clearUserDataToken = () => {
-//     userDataToken.value = null
-//   }
-
-//   return { userDataToken, setUserDataToken, clearUserDataToken }
-// })
-
-// Using Vue-cookie
 export const useAuthStore = defineStore('user', () => {
-  VueCookieNext.config({ expire: '1d' }) // Set cookie expiration time
+  const userDataToken = ref(null)
 
   const getUserDataToken = () => {
-    return VueCookieNext.getCookie('userDataToken')
+    return userDataToken.value
   }
 
+  // Action to set user data token
   const setUserDataToken = (token) => {
-    VueCookieNext.setCookie('userDataToken', token)
+    userDataToken.value = token
   }
 
+  // Action to clear user data token
   const clearUserDataToken = () => {
-    VueCookieNext.removeCookie('userDataToken')
+    userDataToken.value = null
   }
 
-  return { getUserDataToken, setUserDataToken, clearUserDataToken }
+  return { userDataToken, getUserDataToken, setUserDataToken, clearUserDataToken }
 })
+
+// Using Vue-cookie
+// export const useAuthStore = defineStore('user', () => {
+//   VueCookieNext.config({ expire: '1d' }) // Set cookie expiration time
+
+//   const getUserDataToken = () => {
+//     return VueCookieNext.getCookie('userDataToken')
+//   }
+
+//   const setUserDataToken = (token) => {
+//     VueCookieNext.setCookie('userDataToken', token)
+//   }
+
+//   const clearUserDataToken = () => {
+//     VueCookieNext.removeCookie('userDataToken')
+//   }
+
+//   return { getUserDataToken, setUserDataToken, clearUserDataToken }
+// })
 
 // using sessionStorage
 // export const useAuthStore = defineStore('user', () => {
@@ -61,7 +65,12 @@ export const useAuthStore = defineStore('user', () => {
 // export const useAuthStore = defineStore('user', () => {
 //   const userDataToken = ref(localStorage.getItem('userDataToken') || null)
 //   userDataToken
-//   const setUserToken = (token) => {
+
+//   const getUserDataToken = () => {
+//     return localStorage.getItem('userDataToken')
+//   }
+
+//   const setUserDataToken = (token) => {
 //     userDataToken.value = token
 //     localStorage.setItem('userDataToken', token) // Store in localStorage
 //   }
@@ -71,5 +80,5 @@ export const useAuthStore = defineStore('user', () => {
 //     localStorage.removeItem('userDataToken')
 //   }
 
-//   return { userToken, setUserToken }
+//   return { getUserDataToken, setUserDataToken, clearUserDataToken }
 // })
