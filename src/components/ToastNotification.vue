@@ -36,8 +36,8 @@ import IconWarning from './icons/IconWarning.vue';
 const visible = ref(false);
 
 const props = defineProps({
-  type: String, // "success" | "failure" | "warning"
-  toastMessage: String, // "Item has been deleted." | "Improve password difficulty."
+  type: String,
+  toastMessage: String,
 })
 
 const styles = reactive({

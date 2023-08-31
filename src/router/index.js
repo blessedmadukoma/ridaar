@@ -3,8 +3,8 @@ import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import FindRideView from '../views/FindRideView.vue'
 import StandbyView from '../views/StandbyView.vue'
-// import { api } from '../helpers/api'
 import axios from 'axios'
+import { getUserCookie, clearUserCookie } from '../helpers/cookie'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,11 +41,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
+  const userToken = getUserCookie()
   if (to.name === 'login') {
     return true
   }
 
-  if (!localStorage.getItem('token')) {
+  // if (!localStorage.getItem('token')) {
+  if (!userToken) {
     return { name: 'login' }
   }
 
@@ -53,17 +55,21 @@ router.beforeEach((to) => {
 })
 
 const checkTokenAuthenticity = () => {
+  const userToken = getUserCookie()
+
   axios
     .get(`${import.meta.env.VITE_API_URL}/user`, {
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
+        // Authorization: 'Bearer ' + localStorage.getItem('token')
+        Authorization: 'Bearer ' + userToken
       }
     })
     .then((response) => {
       console.log(response.data)
     })
     .catch(() => {
-      localStorage.removeItem('token')
+      // localStorage.removeItem('token')
+      clearUserCookie()
       router.push({ name: 'login' })
     })
 }

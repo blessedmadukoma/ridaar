@@ -57,8 +57,11 @@ import LoadSpinner from "../components/LoadSpinner.vue";
 import toggleLoading from "../helpers/spinner";
 import ToastNotificationVue from "../components/ToastNotification.vue";
 import { useRouter } from "vue-router";
+// import { useUserAuthStore } from "../stores/auth.store";
+import { setUserCookie } from "../helpers/cookie";
 
 const router = useRouter();
+// const authStore = useUserAuthStore();
 
 const message = ref("Enter your phone number");
 
@@ -126,6 +129,7 @@ const handleLogin = () => {
     });
 };
 
+// verify the login code
 const handleVerify = () => {
   toggleLoading(loadingVerify);
   api().post("/login/verify", formattedCredentials.value)
@@ -134,7 +138,9 @@ const handleVerify = () => {
       // console.log(response.data);
       isResponse.value = true;
 
-      localStorage.setItem('token', response.data);
+      // localStorage.setItem('token', response.data);
+      // authStore.setUserDataToken(response.data);
+      setUserCookie(response.data);
 
       toast.message = "Verification successful! Proceeding to dashboard...";
       toast.type = "success";
