@@ -1,17 +1,18 @@
 import axios from 'axios'
-import { getUserCookie } from '../helpers/cookie'
+import { useAuthStore } from '../stores/auth.store'
 
 const api = () => {
+  const authStore = useAuthStore()
+
   let options = {
     baseURL: `${import.meta.env.VITE_API_URL}`,
     headers: {}
   }
 
-  console.log(getUserCookie())
-  // if (localStorage.getItem('token')) {
-  // options.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
-  if (getUserCookie()) {
-    options.headers.Authorization = `Bearer ${getUserCookie()}`
+  const userToken = authStore.getUserDataToken()
+
+  if (userToken) {
+    options.headers.Authorization = `Bearer ${userToken}`
   }
   return axios.create(options)
 }

@@ -5,7 +5,7 @@ import FindRideView from '../views/FindRideView.vue'
 import StandbyView from '../views/StandbyView.vue'
 import DriverInfoView from '../views/DriverInfoView.vue'
 import axios from 'axios'
-import { getUserCookie, clearUserCookie } from '../helpers/cookie'
+import { useAuthStore } from '../stores/auth.store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,7 +47,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  const userToken = getUserCookie()
+  const authStore = useAuthStore()
+
+  const userToken = authStore.getUserDataToken()
   if (to.name === 'login') {
     return true
   }
@@ -61,12 +63,12 @@ router.beforeEach((to) => {
 })
 
 const checkTokenAuthenticity = () => {
-  const userToken = getUserCookie()
+  const authStore = useAuthStore()
+  const userToken = authStore.getUserDataToken()
 
   axios
     .get(`${import.meta.env.VITE_API_URL}/user`, {
       headers: {
-        // Authorization: 'Bearer ' + localStorage.getItem('token')
         Authorization: 'Bearer ' + userToken
       }
     })
@@ -74,8 +76,7 @@ const checkTokenAuthenticity = () => {
       console.log(response.data)
     })
     .catch(() => {
-      // localStorage.removeItem('token')
-      clearUserCookie()
+      authStore.clearUserDataToken()
       router.push({ name: 'login' })
     })
 }
