@@ -47,6 +47,11 @@ const styles = reactive({
 })
 
 const showToast = () => {
+  console.log("clicked");
+  visible.value = true;
+
+  console.log("Visible:", visible.value);
+
   switch (props.type) {
     case "success":
       styles.classStyle = "text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"
@@ -67,9 +72,9 @@ const showToast = () => {
       break;
   }
 
-  visible.value = true;
   setTimeout(() => {
     visible.value = false;
+    console.log("Visible:", visible.value);
   }, 3000);
 }
 

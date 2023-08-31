@@ -3,6 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import FindRideView from '../views/FindRideView.vue'
 import StandbyView from '../views/StandbyView.vue'
+import DriverInfoView from '../views/DriverInfoView.vue'
 import axios from 'axios'
 import { getUserCookie, clearUserCookie } from '../helpers/cookie'
 
@@ -28,6 +29,11 @@ const router = createRouter({
       path: '/standby',
       name: 'standby',
       component: StandbyView
+    },
+    {
+      path: '/driver-info',
+      name: 'driver-info',
+      component: DriverInfoView
     }
     // {
     //   path: '/about',

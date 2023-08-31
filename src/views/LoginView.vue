@@ -57,11 +57,11 @@ import LoadSpinner from "../components/LoadSpinner.vue";
 import toggleLoading from "../helpers/spinner";
 import ToastNotificationVue from "../components/ToastNotification.vue";
 import { useRouter } from "vue-router";
-// import { useUserAuthStore } from "../stores/auth.store";
+// import { useAuthStore } from "../stores/auth.store";
 import { setUserCookie } from "../helpers/cookie";
 
 const router = useRouter();
-// const authStore = useUserAuthStore();
+// const authStore = useAuthStore();
 
 const message = ref("Enter your phone number");
 
@@ -104,8 +104,10 @@ const handleLogin = () => {
 
       message.value = "Enter the code sent to your phone number";
 
-      // isResponse.value = false;
       waitingOnVerification.value = true;
+      setTimeout(() => {
+        isResponse.value = false;
+      }, 1500);
     })
     .catch((error) => {
       isResponse.value = true;
@@ -116,7 +118,6 @@ const handleLogin = () => {
         errMsg = "Network error!"
       }
 
-      // toast.message = error.response.data.message || error.message;
       toast.message = errMsg;
       toast.type = "failure";
 
@@ -124,8 +125,7 @@ const handleLogin = () => {
 
       setTimeout(() => {
         isResponse.value = false;
-      }, 2000);
-      // alert(error.message || error.response.data.message);
+      }, 1500);
     });
 };
 
@@ -135,7 +135,6 @@ const handleVerify = () => {
   api().post("/login/verify", formattedCredentials.value)
     .then((response) => {
       toggleLoading(loadingVerify);
-      // console.log(response.data);
       isResponse.value = true;
 
       // localStorage.setItem('token', response.data);
@@ -149,13 +148,13 @@ const handleVerify = () => {
 
       setTimeout(() => {
         isResponse.value = false;
-      }, 2000);
+      }, 1500);
 
       router.push({ name: "dashboard" });
     })
     .catch((error) => {
-      toggleLoading(loadingVerify);
       isResponse.value = true;
+      toggleLoading(loadingVerify);
 
       let errMsg = error.response.data.message || error.message;
 
@@ -168,7 +167,7 @@ const handleVerify = () => {
 
       setTimeout(() => {
         isResponse.value = false;
-      }, 2000);
+      }, 1500);
     });
 }
 </script>
