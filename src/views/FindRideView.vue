@@ -12,14 +12,12 @@
           </div>
         </div>
 
-        <div @click="$router.go(-1)" class="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
-          <button type="button"
-            class="inline-flex justify-center rounded-md border border-black outline-black py-2 px-4 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-100 focus:outline-none">Go
-            Back</button>
+        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
 
-          <button type="button"
-            class="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-600 focus:outline-none">Find
-            A Ride</button>
+          <ButtonComponent @click="$router.go(-1)" :class="'btn-secondary'" message="Go Back" />
+
+          <ButtonComponent :class="'btn-primary'" message="Find A Ride" />
+
         </div>
       </div>
     </form>
@@ -28,7 +26,7 @@
 </template>
 
 <script setup>
+import ButtonComponent from '../components/ButtonComponent.vue';
+
 
 </script>
-
-<style lang="scss" scoped></style>
