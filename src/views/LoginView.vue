@@ -58,6 +58,7 @@ import toggleLoading from "../helpers/spinner";
 import ToastNotificationVue from "../components/ToastNotification.vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth.store";
+import { handleError } from '../helpers/error';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -111,15 +112,7 @@ const handleLogin = () => {
     .catch((error) => {
       isResponse.value = true;
 
-      let errMsg = error.response ? error.response.data.message : error.message;
-
-      if (typeof errMsg === 'undefined' || errMsg === null) {
-        errMsg = "Network Error 😪 Give us a few minutes 🙏🏿!"
-      }
-
-      if (errMsg.includes("SQLSTATE[08006]") || errMsg.includes("not known (Connection")) {
-        errMsg = "Network error!"
-      }
+      let errMsg = handleError(error)
 
       toast.message = errMsg;
       toast.type = "failure";

@@ -50,7 +50,7 @@ const handleStartDriving = () => {
 
   api().get('/driver').then((response) => {
     toggleLoading(loadingStartDrive);
-    if (response.data.driverr) {
+    if (response.data.driver) {
       router.push({ name: 'standby' });
     } else {
       router.push({ name: 'driver-info' });

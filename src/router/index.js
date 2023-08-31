@@ -75,9 +75,10 @@ const checkTokenAuthenticity = () => {
     .then((response) => {
       console.log(response.data)
     })
-    .catch(() => {
-      authStore.clearUserDataToken()
-      router.push({ name: 'login' })
+    .catch((error) => {
+      console.log(error)
+      // authStore.clearUserDataToken()
+      // router.push({ name: 'login' })
     })
 }
 
