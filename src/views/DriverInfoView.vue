@@ -1,6 +1,6 @@
 <template>
   <section class="pt-16">
-    <h1>Fill in your driver details</h1>
+    <h1 class="text-3xl font-semibold mb-4">Fill in your driver details</h1>
   </section>
 </template>
 

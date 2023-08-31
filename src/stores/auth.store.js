@@ -1,22 +1,75 @@
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { VueCookieNext } from 'vue-cookie-next'
 
-// use this if managing the state becomes complex
+// using ref
+// export const useAuthStore = defineStore('user', () => {
+//   const userDataToken = ref(null)
+
+//   // Action to set user data token
+//   const setUserDataToken = (token) => {
+//     userDataToken.value = token
+//   }
+
+//   // Action to clear user data token
+//   const clearUserDataToken = () => {
+//     userDataToken.value = null
+//   }
+
+//   return { userDataToken, setUserDataToken, clearUserDataToken }
+// })
+
+// Using Vue-cookie
 export const useAuthStore = defineStore('user', () => {
-  // Reactive state properties
-  const userDataToken = ref(sessionStorage.getItem('userDataToken') || null)
+  VueCookieNext.config({ expire: '1d' }) // Set cookie expiration time
 
-  // Action to set user data token
+  const getUserDataToken = () => {
+    return VueCookieNext.getCookie('userDataToken')
+  }
+
   const setUserDataToken = (token) => {
-    userDataToken.value = token
-    sessionStorage.setItem('userDataToken', token)
+    VueCookieNext.setCookie('userDataToken', token)
   }
 
-  // Action to clear user data token
   const clearUserDataToken = () => {
-    userDataToken.value = null
-    sessionStorage.removeItem('userDataToken')
+    VueCookieNext.removeCookie('userDataToken')
   }
 
-  return { userDataToken, setUserDataToken, clearUserDataToken }
+  return { getUserDataToken, setUserDataToken, clearUserDataToken }
 })
+
+// using sessionStorage
+// export const useAuthStore = defineStore('user', () => {
+//   const userDataToken = ref(sessionStorage.getItem('userDataToken') || null)
+
+//   // Action to set user data token
+//   const setUserDataToken = (token) => {
+//     userDataToken.value = token
+//     sessionStorage.setItem('userDataToken', token)
+//   }
+
+//   // Action to clear user data token
+//   const clearUserDataToken = () => {
+//     userDataToken.value = null
+//     sessionStorage.removeItem('userDataToken')
+//   }
+
+//   return { userDataToken, setUserDataToken, clearUserDataToken }
+// })
+
+// using localStorage
+// export const useAuthStore = defineStore('user', () => {
+//   const userDataToken = ref(localStorage.getItem('userDataToken') || null)
+//   userDataToken
+//   const setUserToken = (token) => {
+//     userDataToken.value = token
+//     localStorage.setItem('userDataToken', token) // Store in localStorage
+//   }
+
+//   const clearUserDataToken = () => {
+//     userDataToken.value = null
+//     localStorage.removeItem('userDataToken')
+//   }
+
+//   return { userToken, setUserToken }
+// })
