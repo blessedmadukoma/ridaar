@@ -18,5 +18,62 @@ export const useTripStore = defineStore('trip', () => {
     }
   })
 
-  return { id, user_id, destination_name, driver }
+  const origin = reactive({
+    lat: null,
+    lng: null
+  })
+
+  const destination = reactive({
+    lat: null,
+    lng: null
+  })
+
+  const driver_location = reactive({
+    lat: null,
+    lng: null
+  })
+
+  const is_started = ref(false)
+  const is_complete = ref(false)
+
+  const reset = () => {
+    id.value = null
+
+    user_id.value = null
+
+    destination_name.value = null
+
+    driver.id = null
+    driver.year = null
+    driver.make = null
+    driver.model = null
+    driver.license_plate = null
+    driver.color = null
+    driver.user.name = null
+
+    origin.lat = null
+    origin.lng = null
+
+    destination.lat = null
+    destination.lng = null
+
+    driver_location.lat = null
+    driver_location.lng = null
+
+    is_started.value = false
+    is_complete.value = false
+  }
+
+  return {
+    id,
+    user_id,
+    destination_name,
+    driver,
+    origin,
+    destination,
+    driver_location,
+    is_started,
+    is_complete,
+    reset
+  }
 })

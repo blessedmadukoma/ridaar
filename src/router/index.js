@@ -4,6 +4,8 @@ import DashboardView from '../views/DashboardView.vue'
 import FindRideView from '../views/FindRideView.vue'
 import StandbyView from '../views/StandbyView.vue'
 import DriverInfoView from '../views/DriverInfoView.vue'
+import MapView from '../views/MapView.vue'
+import TripView from '../views/TripView.vue'
 import axios from 'axios'
 import { useAuthStore } from '../stores/auth.store'
 
@@ -34,6 +36,16 @@ const router = createRouter({
       path: '/driver-info',
       name: 'driver-info',
       component: DriverInfoView
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: MapView
+    },
+    {
+      path: '/trip',
+      name: 'trip',
+      component: TripView
     }
     // {
     //   path: '/about',
