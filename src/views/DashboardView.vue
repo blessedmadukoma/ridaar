@@ -3,6 +3,7 @@
     <ToastNotificationVue v-if="isResponse" :type="toast.type" :toastMessage="toast.message" />
 
     <h1 class="text-3xl font-semibold mb-4">Ridaar</h1>
+    <p class="text-lg font-light mb-4">Simplified Ride Booking and Tracking.</p>
     <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
       <div class="bg-white px-4 py-5 sm:p-6">
         <div class="flex justify-between">
